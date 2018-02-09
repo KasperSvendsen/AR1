@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="earth2" size="19.200001 19.390652" />
+    <ImageTarget name="SpaceShuttleEnhanced2" size="5.900000 10.272177" />
+    <ImageTarget name="GalaxyEliminatorEnhanced7" size="3.000000 4.312500" />
+    <ImageTarget name="GalaxyEliminatorEnhanced6" size="3.000000 4.312500" />
+    <ImageTarget name="GalaxyEliminatorEnhanced5" size="3.000000 4.312500" />
+    <ImageTarget name="GalaxyEliminatorEnhanced4" size="3.000000 4.312500" />
+    <ImageTarget name="GalaxyEliminatorEnhanced3" size="3.000000 4.312500" />
+    <ImageTarget name="GalaxyEliminatorEnhanced2" size="3.000000 4.312500" />
+    <ImageTarget name="GalaxyEliminatorEnhanced" size="3.000000 4.312500" />
+    <ImageTarget name="EvilSpaceMachineEnhanced" size="3.400000 4.555024" />
+    <ImageTarget name="LandingStripEnhanced2" size="9.600000 26.554577" />
+    <ImageTarget name="LandingStripEnhanced" size="9.600000 26.554577" />
+    <ImageTarget name="GalaxyEliminator" size="3.100000 4.456250" />
+    <ImageTarget name="EvilSpaceMachine" size="3.400000 4.555024" />
+    <ImageTarget name="SpaceShuttle" size="5.900000 10.272177" />
+    <ImageTarget name="MillenniumFalcon" size="7.000000 9.465012" />
+    <ImageTarget name="LandingStrip" size="9.600000 26.554577" />
+  </Tracking>
+</QCARConfig>
