@@ -34,10 +34,11 @@ public class ButtonRay : MonoBehaviour
     void Update()
     {
 
-        Vector3 worldPos = millennium.transform.position + millennium.transform.rotation * millennium.transform.localPosition;
+        //Vector3 worldPos = millennium.transform.position + millennium.transform.rotation * millennium.transform.localPosition;
 
-        ray.origin = new Vector3(0, 0, 0);
-        ray.direction = new Vector3(1, 0, 0);
+
+        ray.origin = millennium.transform.position; 
+        ray.direction = millennium.transform.forward;
 
         //draw into scene view
         Debug.DrawRay(ray.origin, ray.direction * rayLength);
@@ -48,7 +49,7 @@ public class ButtonRay : MonoBehaviour
     void TaskOnClick()
     {
         Debug.Log("You have clicked the button!");
-        Physics.Raycast(new Vector3(0,0,0), new Vector3(1,1,1), rayLength);
+        Physics.Raycast(ray.origin, ray.direction * rayLength);
 
 
         
