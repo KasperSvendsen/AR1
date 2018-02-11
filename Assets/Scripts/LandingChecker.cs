@@ -45,7 +45,8 @@ public class LandingChecker : MonoBehaviour {
         forwardDir = Vector3.Dot(shuttleFor, landingFor);
         rightDir = Vector3.Dot(shuttleRight, landingRight);
 
-        print(rightDir);
+        print(forwardDir);
+        AngleToColor(forwardDir);
 
         //Matrix4x4 shuttleMatrix = T(spaceShuttle.transform.position.x, spaceShuttle.transform.position.y, spaceShuttle.transform.position.z);
         //Matrix4x4 landingMatrix = T(landingStrip.transform.position.x, landingStrip.transform.position.y, landingStrip.transform.position.z);
@@ -79,7 +80,21 @@ public class LandingChecker : MonoBehaviour {
 
     }
 
-  
 
+    void AngleToColor(float angle)
+    {
+        if (angle < .2)
+        {
+            quad.GetComponent<Renderer>().material.color = Color.yellow;
+        }
+        else if (angle < .1)
+        {
+            quad.GetComponent<Renderer>().material.color = Color.green;
+        }
+        else
+        {
+            quad.GetComponent<Renderer>().material.color = Color.red;
+        }
+    }
 
 }

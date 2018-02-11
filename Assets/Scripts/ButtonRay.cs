@@ -13,10 +13,9 @@ public class ButtonRay : MonoBehaviour
     private float rayLength;
     private bool shoot;
     private Ray ray;
-    private Ray ray2;
     private Material material;
 
-    private float leftCannon;
+
 
     // Use this for initialization
     void Start()
@@ -27,30 +26,17 @@ public class ButtonRay : MonoBehaviour
         shoot = false;
         explosion.Pause();
         rayLength = 10;
-        leftCannon = 0.07f;
+        
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Local positions of cameras
-        Vector3 leftLocalPos = new Vector3((millennium.transform.position.x - leftCannon), millennium.transform.position.y, millennium.transform.position.z);
-
-        //Vector3 rightLocalPos =
-
-        //World positions of cameras
-        Vector3 leftWorldPos = millennium.transform.position + millennium.transform.rotation * leftLocalPos;
 
         //center cannon into scene view
         ray.origin = millennium.transform.position; 
         ray.direction = millennium.transform.forward;
-
-        Debug.DrawRay(ray.origin, ray.direction * rayLength);
-
-        //left and right front cannons into scene view
-        ray2.origin = leftWorldPos;
-        ray2.direction = millennium.transform.forward;
 
         Debug.DrawRay(ray.origin, ray.direction * rayLength);
 
