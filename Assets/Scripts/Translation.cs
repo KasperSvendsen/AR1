@@ -40,13 +40,13 @@ public class Translation : MonoBehaviour {
         //Position vector
         posInEarth = posMatrixInEarth.GetColumn(3);
 
-        print("Pos: " + posMatrixInEarth.GetColumn(3));
+        //print("Pos: " + posMatrixInEarth.GetColumn(3));
 
         nosePosition = "Local position: " + posInEarth.x.ToString() + ", " + posInEarth.y.ToString() + ", " + posInEarth.z.ToString();
 
 
         //Check wether nose is above the earth and which hemisphere
-        if (Mathf.Abs(posInEarth.x) < 0.45f && Mathf.Abs(posInEarth.z) < 0.45f && posInEarth.y < 0.4f){
+        if (Mathf.Abs(posInEarth.x) < 0.45f && Mathf.Abs(posInEarth.z) < 0.45f && posInEarth.y < 0.4f){ //cylindrical boundaries
             if (posInEarth.z > 0)
             {
                 hemisphere = "Hemisphere: North";

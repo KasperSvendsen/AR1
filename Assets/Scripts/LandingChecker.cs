@@ -7,8 +7,6 @@ public class LandingChecker : MonoBehaviour {
     private GameObject spaceShuttle;
     private GameObject landingStrip;
     private GameObject quad;
-    private Vector3 shuttlePos;
-    private Vector3 landingPos;
 
     private Vector3 shuttleFor;
     private Vector3 landingFor;
@@ -31,69 +29,64 @@ public class LandingChecker : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        //shuttlePos = spaceShuttle.transform.localPosition;
-        //landingPos = landingStrip.transform.localPosition;
-
-        //print(Vector3.Dot(shuttlePos, landingPos));
-
+        //forward vectors: Blue axis: Z
         shuttleFor = spaceShuttle.transform.forward;
         landingFor = landingStrip.transform.forward;
 
+        //Right vectors: Red axis: x
         shuttleRight = spaceShuttle.transform.right;
         landingRight = landingStrip.transform.right;
 
-        forwardDir = Vector3.Dot(shuttleFor, landingFor);
-        rightDir = Vector3.Dot(shuttleRight, landingRight);
 
-        print(forwardDir);
+        /*Dot product: For normalized vectors Dot returns: 
+                 1: if they point in exactly the same direction, 
+                -1: if they point in completely opposite directions
+                 0: if the vectors are perpendicular
+        */
+        forwardDir = Vector3.Dot(shuttleFor, landingFor); 
+        rightDir = Vector3.Dot(shuttleRight, landingRight); 
+
+
+        //print("For: " + forwardDir);
+        //print("Right: " + rightDir);
+
+        //Determine color of quad
         AngleToColor(forwardDir, rightDir);
 
 
 
-        //Matrix4x4 shuttleMatrix = T(spaceShuttle.transform.position.x, spaceShuttle.transform.position.y, spaceShuttle.transform.position.z);
-        //Matrix4x4 landingMatrix = T(landingStrip.transform.position.x, landingStrip.transform.position.y, landingStrip.transform.position.z);
-
-        //print(shuttleMatrix * landingMatrix);
-
-        //Vector3 forwardShuttle = shuttleMatrix.GetColumn(3);
-        //Vector3 rightShuttle = shuttleMatrix.GetColumn(1);
-
-
-        //Vector3 forwardLanding = landingMatrix.GetColumn(3);
-        //Vector3 rightLanding = landingMatrix.GetColumn(1);
-
-        /*
-         * METHOD FOR CHANGING COLOR OF QUAD
-        quad.GetComponent<Renderer>().material.color = Color.green;
-        */
-
-
-        //suttlePos = Vector3.Normalize(spaceShuttle.transform.position);
-        //landingPos = Vector3.Normalize(landingStrip.transform.position);
-
 
 
     }
 
-
-    void AngleToColor(float fowardAngle, float rightAngle)
+    void AngleToColor(float forwardAngle, float rightAngle)
     {
-        float absForwardAngle = Mathf.Abs(fowardAngle);
-        float absRightAngle = Mathf.Abs(rightAngle);
 
 
-        if (absForwardAngle > .9 && absRightAngle > .9)
+        if ((forwardAngle >= 0.9 || forwardAngle <= -0.9) && (rightAngle >= 0.9 || rightAngle <= -0.9)) //forward and right align
         {
-            quad.GetComponent<Renderer>().material.color = Color.yellow;
-        }
-        else if (absForwardAngle > .8 && absRightAngle > .8)
-        {
+            print("Both align");
             quad.GetComponent<Renderer>().material.color = Color.green;
         }
-        else
+
+        else if ((forwardAngle >= 0.9 || forwardAngle <= -0.9) && (rightAngle < 0.9 || rightAngle > -0.9)){ //forward align and right does not
+            print("Only forward align");
+            //????
+        }
+
+        else if ((forwardAngle < 0.9 || forwardAngle > -0.9) && (rightAngle >= 0.9 || rightAngle <= -0.9)) // right align and forward does not
         {
+            print("Only right align");
+            quad.GetComponent<Renderer>().material.color = Color.yellow;
+        }
+
+        else if ((forwardAngle < 0.9 || forwardAngle > -0.9) && (rightAngle < 0.9 || rightAngle > -0.9)) //no one align
+        {
+            print("No one align");
             quad.GetComponent<Renderer>().material.color = Color.red;
         }
+
     }
 
-}
+
+ }

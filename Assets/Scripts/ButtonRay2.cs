@@ -8,7 +8,6 @@ public class ButtonRay2 : MonoBehaviour
 
     private float rayLength;
 
-
     private float leftPosX;
     private float leftPosZ;
     private float rightPosX;
@@ -22,6 +21,8 @@ public class ButtonRay2 : MonoBehaviour
     private Ray ray3;
     private Material material;
 
+    public float pitch;
+    public float yaw;
 
 
     // Use this for initialization
@@ -32,6 +33,9 @@ public class ButtonRay2 : MonoBehaviour
         shoot = false;
         rayLength = 10;
 
+        pitch = 1;
+        yaw = 1;
+
 
         //Positions of cannons
         leftPosX = -0.6f;
@@ -39,7 +43,6 @@ public class ButtonRay2 : MonoBehaviour
         rightPosX = 0.6f;
         rightPosZ = 4.4f;
         topPosY = 2.5f;
-
 
     }
 
@@ -72,8 +75,10 @@ public class ButtonRay2 : MonoBehaviour
         Debug.DrawRay(ray2.origin, ray2.direction * rayLength);
 
         //top cannon into scene view
+        Quaternion cannonRotation = Quaternion.Euler(new Vector3(pitch, yaw, 0));
+        Vector3 cannonDirection = cannonRotation * millennium.transform.forward;
         ray3.origin = topWorldPos;
-        ray3.direction = millennium.transform.forward;
+        ray3.direction = cannonDirection;
         Debug.DrawRay(ray3.origin, ray3.direction * rayLength);
 
 
@@ -82,6 +87,7 @@ public class ButtonRay2 : MonoBehaviour
         {
             //draw line
             shoot = true;
+            print("shoot");
 
             RaycastHit hit;
 

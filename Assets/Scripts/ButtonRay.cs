@@ -26,7 +26,6 @@ public class ButtonRay : MonoBehaviour
         shoot = false;
         explosion.Pause();
         rayLength = 10;
-        
 
     }
 
@@ -34,7 +33,7 @@ public class ButtonRay : MonoBehaviour
     void Update()
     {
 
-        //center cannon into scene view
+        //draw into scene view
         ray.origin = millennium.transform.position; 
         ray.direction = millennium.transform.forward;
 
@@ -47,6 +46,7 @@ public class ButtonRay : MonoBehaviour
             //draw line
             shoot = true;
 
+            //information about collision
             RaycastHit hit;
         
             //check collision
@@ -75,7 +75,7 @@ public class ButtonRay : MonoBehaviour
             {
                 material = new Material(Shader.Find("Hidden/Internal-Colored"));
             }
-            material.SetPass(0);
+            material.SetPass(0); //activate pass for rendering
 
             GL.Begin(GL.LINES);
             GL.Color(Color.red);
