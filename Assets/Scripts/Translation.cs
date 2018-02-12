@@ -11,8 +11,8 @@ public class Translation : MonoBehaviour {
 
     private Vector3 posInEarth;
 
-    public Text nosePosition;
-    public Text hemisphere;
+    public string nosePosition;
+    public string hemisphere;
 
     // Use this for initialization
     void Start () {
@@ -42,21 +42,21 @@ public class Translation : MonoBehaviour {
 
         print("Pos: " + posMatrixInEarth.GetColumn(3));
 
-        nosePosition.text = "Local position: " + posInEarth.x.ToString() + ", " + posInEarth.y.ToString() + ", " + posInEarth.z.ToString();
+        nosePosition = "Local position: " + posInEarth.x.ToString() + ", " + posInEarth.y.ToString() + ", " + posInEarth.z.ToString();
 
 
         //Check wether nose is above the earth and which hemisphere
         if (Mathf.Abs(posInEarth.x) < 0.45f && Mathf.Abs(posInEarth.z) < 0.45f && posInEarth.y < 0.4f){
             if (posInEarth.z > 0)
             {
-                hemisphere.text = "Hemisphere: North";
+                hemisphere = "Hemisphere: North";
             } else if(posInEarth.z < 0){
-                hemisphere.text = "Hemisphere: South";
+                hemisphere = "Hemisphere: South";
             }
 
         }else
         {
-            hemisphere.text = "Not above earth";
+            hemisphere = "Not above earth";
         }
 
 
@@ -65,14 +65,11 @@ public class Translation : MonoBehaviour {
     
     void OnGUI()
     {
-        /*
         GUI.color = Color.red;
-        GUI.Label(new Rect(10, 10, 500, 100), "text");
-        */
+        GUI.Label(new Rect(10, 10, 500, 100), hemisphere);
+        GUI.Label(new Rect(10,25, 500,100), nosePosition);
 
     }
-    
-    
 
     
 }
