@@ -10,71 +10,69 @@ public class Translation : MonoBehaviour {
     private GameObject nose;
 
     private Vector3 posInEarth;
+
     public Text nosePosition;
+    public Text hemisphere;
 
     // Use this for initialization
     void Start () {
         spaceShuttle = GameObject.Find("SpaceShuttle");
         earth = GameObject.Find("Earth");
         nose = GameObject.Find("Nose");
-        setNosePositiontext();
     }
 	
 	// Update is called once per frame
 	void Update () {
 
-        //Position of quad and the spaceshuttle's matrix for going to the position in world coordinates
-        Vector3 nosePos = nose.transform.localPosition;
+        //Nose's transform matrix and the spaceshuttle's model matrix for going to the position in world coordinates
+        Matrix4x4 noseMatrix = Matrix4x4.TRS(nose.transform.localPosition, nose.transform.localRotation, nose.transform.localScale);
         Matrix4x4 spaceShuttleMatrix = spaceShuttle.transform.localToWorldMatrix; //the model matrix for the spaceShuttle
 
-        //The inverse earth matrix for going back to earth coordinates
+        //The inverse earth model matrix for going back to earth coordinates
         Matrix4x4 inverseEarthMatrix = earth.transform.worldToLocalMatrix;
 
         //Transformation matrix
         Matrix4x4 transformationMatrix = inverseEarthMatrix * spaceShuttleMatrix;
 
-        //Going to position in earth coordinates
-        posInEarth =  transformationMatrix * nosePos;
+        //Going to transform matrix in earth coordinates
+        Matrix4x4 posMatrixInEarth =  transformationMatrix * noseMatrix;
 
-        //print("Pos: " + posInEarth.x);
+        //Position vector
+        posInEarth = posMatrixInEarth.GetColumn(3);
 
-        setNosePositiontext();
+        print("Pos: " + posMatrixInEarth.GetColumn(3));
 
-        print(earth.transform.localToWorldMatrix.GetColumn(2));
+        nosePosition.text = "Local position: " + posInEarth.x.ToString() + ", " + posInEarth.y.ToString() + ", " + posInEarth.z.ToString();
 
-        //Check wether nose is above the earth -- wrong numbers!!!
-        if (posInEarth.x < 1 && posInEarth.z < 1 && posInEarth.y < 0.05){
-            if (posInEarth.x < 1)
+
+        //Check wether nose is above the earth and which hemisphere
+        if (Mathf.Abs(posInEarth.x) < 0.45f && Mathf.Abs(posInEarth.z) < 0.45f && posInEarth.y < 0.4f){
+            if (posInEarth.z > 0)
             {
-                print("Hemisphere_ North");
-            } else if(posInEarth.x > 1){
-                print("Hemisphere: South");
+                hemisphere.text = "Hemisphere: North";
+            } else if(posInEarth.z < 0){
+                hemisphere.text = "Hemisphere: South";
             }
-            
+
+        }else
+        {
+            hemisphere.text = "Not above earth";
         }
 
 
-
-
-    }   
-
-    //Method for setting the text
-    void setNosePositiontext()
-    {
-        nosePosition.text = "Local position: " + posInEarth.x.ToString() + ", " + posInEarth.y.ToString() + ", " + posInEarth.z.ToString();
     }
 
-
-
-    public static Matrix4x4 T(float x, float y, float z)
+    
+    void OnGUI()
     {
-        Matrix4x4 m = new Matrix4x4();
+        /*
+        GUI.color = Color.red;
+        GUI.Label(new Rect(10, 10, 500, 100), "text");
+        */
 
-        m.SetRow(0, new Vector4(1, 0, 0, x));
-        m.SetRow(1, new Vector4(0, 1, 0, y));
-        m.SetRow(2, new Vector4(0, 0, 1, z));
-        m.SetRow(3, new Vector4(0, 0, 0, 1));
-
-        return m;
     }
+    
+    
+
+    
 }

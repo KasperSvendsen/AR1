@@ -46,7 +46,9 @@ public class LandingChecker : MonoBehaviour {
         rightDir = Vector3.Dot(shuttleRight, landingRight);
 
         print(forwardDir);
-        AngleToColor(forwardDir);
+        AngleToColor(forwardDir, rightDir);
+
+
 
         //Matrix4x4 shuttleMatrix = T(spaceShuttle.transform.position.x, spaceShuttle.transform.position.y, spaceShuttle.transform.position.z);
         //Matrix4x4 landingMatrix = T(landingStrip.transform.position.x, landingStrip.transform.position.y, landingStrip.transform.position.z);
@@ -59,13 +61,6 @@ public class LandingChecker : MonoBehaviour {
 
         //Vector3 forwardLanding = landingMatrix.GetColumn(3);
         //Vector3 rightLanding = landingMatrix.GetColumn(1);
-
-
-
-        /*
-        print("Shuttle: "+forwardShuttle);
-        print("Landing: "+forwardLanding);
-        */
 
         /*
          * METHOD FOR CHANGING COLOR OF QUAD
@@ -81,13 +76,17 @@ public class LandingChecker : MonoBehaviour {
     }
 
 
-    void AngleToColor(float angle)
+    void AngleToColor(float fowardAngle, float rightAngle)
     {
-        if (angle < .2)
+        float absForwardAngle = Mathf.Abs(fowardAngle);
+        float absRightAngle = Mathf.Abs(rightAngle);
+
+
+        if (absForwardAngle > .9 && absRightAngle > .9)
         {
             quad.GetComponent<Renderer>().material.color = Color.yellow;
         }
-        else if (angle < .1)
+        else if (absForwardAngle > .8 && absRightAngle > .8)
         {
             quad.GetComponent<Renderer>().material.color = Color.green;
         }
