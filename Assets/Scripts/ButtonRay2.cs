@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -78,8 +78,14 @@ public class ButtonRay2 : MonoBehaviour
         Quaternion cannonRotation = Quaternion.Euler(new Vector3(pitch, yaw, 0));
         Vector3 cannonDirection = cannonRotation * millennium.transform.forward;
         ray3.origin = topWorldPos;
-        ray3.direction = cannonDirection;
+        print("mill: "+millennium.transform); 
+        print("cannon: "+cannonDirection.x);
+        //ray3.direction = cannonDirection;
+
+        ray3.direction = millennium.transform.rotation * cannonRotation * Vector3.forward;
         Debug.DrawRay(ray3.origin, ray3.direction * rayLength);
+
+
 
 
         //shoot if space is pressed
